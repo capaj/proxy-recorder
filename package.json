@@ -1,0 +1,41 @@
+{
+  "name": "proxy-recorder",
+  "version": "0.0.1",
+  "description": "proxy with recording capabilities for easy mocking of 3rd party APIs",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/capaj/prism-proxy.git"
+  },
+  "keywords": [
+    "proxy",
+    "mocking",
+    "stubbing",
+    "stub",
+    "nock",
+    "vcr",
+    "e2e",
+    "testing",
+    "api",
+    "replay"
+  ],
+  "author": "capajj@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/capaj/prism-proxy/issues"
+  },
+  "homepage": "https://github.com/capaj/prism-proxy",
+  "dependencies": {
+    "connect": "^3.3.4",
+    "http-proxy": "^1.8.1",
+    "morgan": "^1.5.1"
+  },
+  "devDependencies": {
+    "chai": "^2.0.0",
+    "mocha": "^2.1.0",
+    "request": "^2.53.0"
+  }
+}

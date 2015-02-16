@@ -20,6 +20,7 @@
     "e2e",
     "testing",
     "api",
+    "fixture",
     "replay"
   ],
   "author": "capajj@gmail.com",

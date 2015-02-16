@@ -8,8 +8,9 @@ module.exports = {
 	/**
 	 * @param {Object} opts is used for proxy.web method call
 	 * @param {Object} opts.port is used as port to listen on
+	 * @param {Function} cb
 	 */
-	record: function record(opts) {
+	record: function record(opts, cb) {
 		var app = connect()
 			.use(morgan)
 			.use(function(req, res){
@@ -26,7 +27,12 @@ module.exports = {
 				});
 			});
 
-		http.createServer(app).listen(opts.port);
+		http.createServer(app).listen(opts.port, function() {
+			console.log("listening");
+			if (cb) {
+				cb();
+			}
+		});
 	},
 	mock: function mock() {
 		var app = connect()

@@ -1,6 +1,14 @@
 # proxy-recorder
 proxy with recording capabilities for easy mocking of 3rd party APIs.
 
+##API
+exposes just two methods so far:
+```javascript
+proxyR.rec(opts)
+//and
+proxyR.mock(opts)
+```
+
 ##How does this differ from [node-replay](https://github.com/assaf/node-replay)?
 Node replay can store mocks inside node, but doesn't help you when you need an API mock as separate node instance 
 running side by side your single page app. 

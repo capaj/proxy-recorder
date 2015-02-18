@@ -1,6 +1,6 @@
 {
   "name": "proxy-recorder",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "proxy with recording capabilities for easy mocking of 3rd party APIs",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/capaj/prism-proxy.git"
+    "url": "https://github.com/capaj/proxy-recorder.git"
   },
   "keywords": [
     "proxy",
@@ -26,9 +26,9 @@
   "author": "capajj@gmail.com",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/capaj/prism-proxy/issues"
+    "url": "https://github.com/capaj/proxy-recorder/issues"
   },
-  "homepage": "https://github.com/capaj/prism-proxy",
+  "homepage": "https://github.com/capaj/proxy-recorder",
   "dependencies": {
     "connect": "^3.3.4",
     "http-proxy": "^1.8.1",

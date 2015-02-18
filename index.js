@@ -52,7 +52,7 @@ recorder.rec = function rec(opts, cb) {
  * @param {Function} cb
  */
 recorder.mock = function mock(opts, cb) {
-	var mockDir = opts.mockDir || 'test/fixtures/';
+	var mockDir = opts.mockDir || 'test/fixtures/' + utils.urlToFilename(opts.target);
 	var app = connect()
 		.use(morgan)
 		.use(function(req, res){

@@ -3,7 +3,7 @@ var request = require('request');
 var chai = require('chai').should();
 var fs = require('fs');
 
-var options = {
+var reqOpts = {
 	url: 'http://localhost:8100/repos/capaj/proxy-recorder',
 	headers: {
 		'User-Agent': 'request'
@@ -12,6 +12,7 @@ var options = {
 
 //uses github api
 describe('basic proxy recorder', function(){
+	var proxyOpts = {port: 8100, target: 'https://api.github.com'};
 	var respValidation = function(done) {
 		return function(error, response, body) {
 			JSON.parse(body).id.should.equal(30876859);
@@ -22,12 +23,11 @@ describe('basic proxy recorder', function(){
 	};
 
 	before(function(done) {
-		pProxy.rec({port: 8100, target:'https://api.github.com'}, done);
+		pProxy.rec(proxyOpts, done);
 	});
 
     it('should proxy all traffic to target', function(done){
-		request(options, respValidation(done));
-
+		request(reqOpts, respValidation(done));
     });
 
 	it('should record it to jsons on file system', function(){
@@ -35,8 +35,9 @@ describe('basic proxy recorder', function(){
 	});
 
 	it('should be able to run and response with mocks', function(done){
-	    pProxy.mock({port: 8101, mockDir: 'test/fixtures/https___api.github.com/'});
-		options.url = 'http://localhost:8101/repos/capaj/proxy-recorder';
-		request(options, respValidation(done));
+	    proxyOpts.port = 8101;
+		pProxy.mock(proxyOpts);
+		reqOpts.url = 'http://localhost:8101/repos/capaj/proxy-recorder';
+		request(reqOpts, respValidation(done));
 	});
 });

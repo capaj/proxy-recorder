@@ -7,7 +7,7 @@ var rmdir = require('rmdir');
 //uses github api
 describe('basic proxy recorder', function(){
 	var proxyOpts = {port: 8100, target: 'https://api.github.com'};
-
+	require('./post_test_server');
 	var reqOpts = {
 		url: 'http://localhost:8100/repos/capaj/proxy-recorder',
 		headers: {
@@ -44,19 +44,31 @@ describe('basic proxy recorder', function(){
 		request(reqOpts, respValidation(done));
 	});
 
-	it.skip('should be able to discern two POST requests to the same URL with different payload and save them in separate files', function(done) {
+	it.only('should be able to discern two POST requests to the same URL with different payload and save them in separate files', function(done) {
 		var reqOpts = {
 			method: 'POST',
-			url: 'http://localhost:8100/repos/capaj/proxy-recorder',
+			url: 'http://localhost:8002/',
 			json: {
-				test: 1
+				ok: true
 			}
 		};
+		var pOpts = {port: 8002, target: 'http://localhost:8001'};
+		pProxy.rec(pOpts, function() {
+			request(reqOpts, function() {
+				reqOpts.json = {ok: false};
+				request(reqOpts, function(err, res) {
+					console.log("error", err);
+					done();
+				});
+			});
+		});
+
+
 	});
 
 	after(function(done) {
-		rmdir( 'test/fixtures/', function ( err, dirs, files ){
+		//rmdir( 'test/fixtures/', function ( err, dirs, files ){
 			done();
-		});
+		//});
 	})
 });

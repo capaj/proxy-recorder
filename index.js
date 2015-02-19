@@ -9,6 +9,7 @@ var EventEmitter = require('events').EventEmitter;
 var recorder = new EventEmitter();
 var path = require('path');
 var fs = require('fs');
+var bodyParser = require('body-parser');
 
 /**
  * @param {Object} opts is used for proxy.web method call
@@ -47,7 +48,6 @@ recorder.rec = function rec(opts, cb) {
 };
 
 /**
- *
  * @param {Object} opts
  * @param {Function} cb
  */

@@ -37,6 +37,7 @@
     "morgan": "^1.5.1"
   },
   "devDependencies": {
+    "body-parser": "^1.12.0",
     "chai": "^2.0.0",
     "express": "^4.11.2",
     "mocha": "^2.1.0",

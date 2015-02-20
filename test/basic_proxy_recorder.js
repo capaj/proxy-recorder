@@ -39,26 +39,47 @@ describe('basic proxy recorder', function(){
 
 	it('should be able to run and response with mocks', function(done){
 	    proxyOpts.port = 8101;
-		pProxy.mock(proxyOpts);
-		reqOpts.url = 'http://localhost:8101/repos/capaj/proxy-recorder';
-		request(reqOpts, respValidation(done));
+		pProxy.mock(proxyOpts).then(function() {
+			reqOpts.url = 'http://localhost:8101/repos/capaj/proxy-recorder';
+			request(reqOpts, respValidation(done));
+		});
 	});
 
-	it.only('should be able to discern two POST requests to the same URL with different payload and save them in separate files', function(done) {
+	it('should be able to discern two POST requests to the same URL with different payload and save them in separate files', function(done) {
+		var firstPayload = {
+			ok: true,
+			ook: false
+		};
 		var reqOpts = {
 			method: 'POST',
 			url: 'http://localhost:8002/',
-			json: {
-				ok: true
-			}
+			json: firstPayload
 		};
 		var pOpts = {port: 8002, target: 'http://localhost:8001'};
 		pProxy.rec(pOpts, function() {
 			request(reqOpts, function() {
-				reqOpts.json = {ok: false};
+				var secondPayload = {ok: false, ook: 1};
+				reqOpts.json = secondPayload;
 				request(reqOpts, function(err, res) {
-					console.log("error", err);
-					done();
+					(err === null).should.be.true;
+
+					pOpts.port = 8003;
+					pProxy.mock(pOpts, function() {
+						reqOpts.url = 'http://localhost:8003/';
+						request(reqOpts, function(err, res, body) {
+							(err === null).should.be.true;
+							res.statusCode.should.equal(400);
+
+							reqOpts.json = firstPayload;
+
+							request(reqOpts, function(err, res, body) {
+								res.statusCode.should.equal(200);
+								done();
+
+							});
+						});
+
+					});
 				});
 			});
 		});
@@ -67,8 +88,8 @@ describe('basic proxy recorder', function(){
 	});
 
 	after(function(done) {
-		//rmdir( 'test/fixtures/', function ( err, dirs, files ){
+		rmdir( 'test/fixtures/', function ( err, dirs, files ){
 			done();
-		//});
+		});
 	})
 });

@@ -34,7 +34,7 @@ describe('basic proxy recorder', function(){
     });
 
 	it('should record it to jsons on file system', function(){
-		fs.existsSync('test/fixtures/https___api.github.com/_repos_capaj_proxy_recorder.json').should.equal(true);
+		fs.existsSync('test/fixtures/https___api.github.com/GET_repos_capaj_proxy_recorder.json').should.equal(true);
 	});
 
 	it('should be able to run and response with mocks', function(done){

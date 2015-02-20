@@ -91,8 +91,8 @@ recorder.mock = function mock(opts, cb) {
 				}
 			});
 			req.on('end', function () {
-				var body = reqBody.toString();
-				var fileName = utils.buildFileName(req.url, body);
+				req.body = reqBody.toString();
+				var fileName = utils.buildFileName(req.url, req);
 
 				var mockFile = path.join(mockDir, fileName);
 				fs.readFile(mockFile, 'utf8', function(err, file) {

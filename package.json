@@ -1,6 +1,6 @@
 {
   "name": "proxy-recorder",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "proxy with recording capabilities for easy mocking of 3rd party APIs",
   "main": "index.js",
   "scripts": {
@@ -30,6 +30,7 @@
   },
   "homepage": "https://github.com/capaj/proxy-recorder",
   "dependencies": {
+    "bluebird": "^2.9.12",
     "connect": "^3.3.4",
     "http-proxy": "^1.8.1",
     "lodash": "^3.2.0",
@@ -37,6 +38,7 @@
     "morgan": "^1.5.1"
   },
   "devDependencies": {
+    "body-parser": "^1.12.0",
     "chai": "^2.0.0",
     "express": "^4.11.2",
     "mocha": "^2.1.0",

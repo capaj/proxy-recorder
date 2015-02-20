@@ -5,6 +5,7 @@ proxy with recording capabilities for easy mocking of 3rd party APIs.
 ```
 npm i proxy-recorder --save-dev
 ```
+Default directory where jsons of responses are stored is relative directory test/fixtures/
 
 ##API
 exposes just two methods so far:
@@ -13,7 +14,7 @@ var opts = {port: 8100, target: 'https://api.github.com'};
 var proxyR = require('proxy-recorder');
 proxyR.rec(opts);	//fires up a proxy to github which records any response going trough
 //and then for testing
-proxyR.mock(opts)	// recorded message is retrived from filesystem based on url and body of the message and mocked server sends the fixture back
+proxyR.mock(opts)	// recorded message is retrieved from filesystem based on url and body of the message and mocked server sends the fixture back
 ```
 
 ##Other projects

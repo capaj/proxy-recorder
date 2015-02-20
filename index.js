@@ -28,7 +28,7 @@ recorder.rec = function rec(opts, cb) {
 
 	var bodies = {};
 	proxy.on('proxyRes', function(proxyRes, req, res) {
-		console.log("target responded");
+
 		var body = bodies[req._header];
 		if (body) {
 			req.body = body;

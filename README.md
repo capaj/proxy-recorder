@@ -10,7 +10,7 @@ npm i proxy-recorder --save-dev
 exposes just two methods so far:
 ```javascript
 var opts = {port: 8100, target: 'https://api.github.com'};
-
+var proxyR = require('proxy-recorder');
 proxyR.rec(opts);	//fires up a proxy to github which records any response going trough
 //and then for testing
 proxyR.mock(opts)	// recorded message is retrived from filesystem based on url and body of the message and mocked server sends the fixture back

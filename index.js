@@ -14,10 +14,9 @@ const Promise = require('bluebird')
 /**
  * @param {Object} opts is used for proxy.web method call
  * @param {Object} opts.port is used as port to listen on
- * @param {Function} [cb] if not passed, promise is returned
  * @returns {Promise} if no cb was supplied
  */
-recorder.rec = function rec (opts, cb) {
+recorder.rec = function rec (opts) {
   const proxy = httpProxy.createProxyServer({
     changeOrigin: true
   }) // be default we changeOrigin, because
@@ -59,24 +58,19 @@ recorder.rec = function rec (opts, cb) {
       })
     })
 
-  let dfd
-  http.createServer(app).listen(opts.port, function () {
-    console.log('proxy-recorder listening on ', opts.port)
-    utils.callbackOrResolve(cb, dfd)
+  return new Promise((resolve, reject) => {
+    http.createServer(app).listen(opts.port, function () {
+      console.log('proxy-recorder listening on ', opts.port)
+      resolve()
+    })
   })
-
-  if (!cb) {
-    dfd = Promise.defer()
-    return dfd.promise
-  }
 }
 
 /**
  * @param {Object} opts
- * @param {Function} [cb] if not provided a callback, promise is returned
  * @returns {Promise} if no cb was supplied
  */
-recorder.mock = function mock (opts, cb) {
+recorder.mock = function mock (opts) {
   const mockDir = opts.mockDir || 'test/fixtures/' + utils.urlToFilename(opts.target)
   const app = connect()
     .use(morgan)
@@ -114,16 +108,12 @@ recorder.mock = function mock (opts, cb) {
       })
     })
 
-  let dfd
-  http.createServer(app).listen(opts.port, function () {
-    console.log('proxy-recorder listening on ', opts.port)
-    utils.callbackOrResolve(cb, dfd)
+  return new Promise((resolve, reject) => {
+    http.createServer(app).listen(opts.port, function () {
+      console.log('proxy-recorder listening on ', opts.port)
+      resolve()
+    })
   })
-
-  if (!cb) {
-    dfd = Promise.defer()
-    return dfd.promise
-  }
 }
 
 module.exports = recorder

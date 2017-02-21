@@ -32,7 +32,7 @@ describe('basic proxy recorder', function () {
   }
 
   before(function (done) {
-    pProxy.rec(proxyOpts, done)
+    pProxy.rec(proxyOpts).then(done)
   })
 
   it('should proxy all traffic to target', function (done) {
@@ -65,7 +65,7 @@ describe('basic proxy recorder', function () {
       port: 8002,
       target: 'http://localhost:8001'
     }
-    pProxy.rec(pOpts, function () {
+    pProxy.rec(pOpts).then(function () {
       request(reqOpts, function () {
         var secondPayload = {
           ok: false,
@@ -76,7 +76,7 @@ describe('basic proxy recorder', function () {
           (err === null).should.be.true
 
           pOpts.port = 8003
-          pProxy.mock(pOpts, function () {
+          pProxy.mock(pOpts).then(function () {
             reqOpts.url = 'http://localhost:8003/'
             request(reqOpts, function (err, res, body) {
               (err === null).should.be.true

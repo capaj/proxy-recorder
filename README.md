@@ -10,8 +10,9 @@ Default directory where jsons of responses are stored is relative directory test
 ##API
 exposes just two methods so far:
 ```javascript
-var opts = {port: 8100, target: 'https://api.github.com'};
-var proxyR = require('proxy-recorder');
+const proxyR = require('proxy-recorder')
+const opts = {port: 8100, target: 'https://api.github.com'}
+
 proxyR.rec(opts);	//fires up a proxy to github which records any response going trough
 //and then for testing
 proxyR.mock(opts)	// recorded message is retrieved from filesystem based on url and body of the message and mocked server sends the fixture back
